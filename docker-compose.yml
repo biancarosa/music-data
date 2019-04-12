@@ -1,0 +1,6 @@
+version: '2'
+services:
+  web:
+    image: music-data:latest
+    ports:
+    - "1323:1323"
