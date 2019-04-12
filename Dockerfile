@@ -1,6 +1,6 @@
 FROM golang:1.11.2 AS build
 
-WORKDIR $GOPATH/src/github.com/biancarosa/goasync
+WORKDIR $GOPATH/src/github.com/biancarosa/music-data
 COPY . ./
 RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 RUN dep ensure

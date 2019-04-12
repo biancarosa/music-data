@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/biancarosa/goasync/routes"
+	"github.com/biancarosa/music-data/routes"
 )
 
 func main() {

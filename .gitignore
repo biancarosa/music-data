@@ -14,7 +14,7 @@
 .glide/
 
 # Godep local dependencies
-vendor/
+*vendor*
 
 # Binary
-goasync
+music-data
