@@ -1,6 +1,8 @@
 package services
 
 import (
+	log "github.com/sirupsen/logrus"
+
 	"github.com/biancarosa/music-data/interfaces"
 )
 
@@ -11,7 +13,9 @@ type Container struct {
 
 //Register registers services on a container
 func Register() *Container {
+	log.Debug("Initializing containers")
+	lastFMService := NewLastFMService()
 	return &Container{
-		SongService: NewSongService(),
+		SongService: NewSongService(lastFMService),
 	}
 }

@@ -6,16 +6,14 @@ import (
 )
 
 type songService struct {
+	lastFMService interfaces.LastFMService
 }
 
 func (s songService) GetSongInfo(name, artist string) (*models.Song, error) {
-	return &models.Song{
-		Name:   name,
-		Artist: artist,
-	}, nil
+	return s.lastFMService.GetSongInfo(name, artist)
 }
 
 //NewSongService returns a implementation of a SongService
-func NewSongService() interfaces.SongService {
-	return &songService{}
+func NewSongService(lastFMService interfaces.LastFMService) interfaces.SongService {
+	return &songService{lastFMService: lastFMService}
 }
