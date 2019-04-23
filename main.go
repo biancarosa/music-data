@@ -8,7 +8,7 @@
 //
 //     Schemes: http, https
 //     Host: localhost
-//     BasePath: /
+//     BasePath: /v1
 //     Version: 0.1.0
 //     License: MIT http://opensource.org/licenses/MIT
 //
@@ -43,7 +43,8 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/healthcheck", routes.HealthCheck)
-
+	v1 := e.Group("/v1")
+	v1.GET("/healthcheck", routes.HealthCheck)
+	v1.GET("/song", routes.Song)
 	e.Logger.Fatal(e.Start(":1323"))
 }

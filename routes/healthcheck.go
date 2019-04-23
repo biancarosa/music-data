@@ -21,15 +21,15 @@ type healthCheckResponse struct {
 		// Required: true
 		ApplicationVersion string `json:"applicationVersion"`
 		Application        struct {
-			// Número de go rotinas abertas
+			// Number of open goroutines.
 			//
 			// Required: true
 			Goroutines int `json:"goroutines"`
-			// Quanto de memória está alocada para uso da aplicação
+			// Allocated memory for the application.
 			//
 			// Required: true
 			HeapAlloc string `json:"heapAlloc"`
-		}
+		} `json:"application"`
 	}
 }
 
