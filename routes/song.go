@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"github.com/biancarosa/music-data/interfaces"
+	"github.com/biancarosa/music-data/models"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -13,16 +15,11 @@ type songResponse struct {
 	// The response for a valid song request.
 	//
 	// in: body
-	Body struct {
-		// Song name
-		//
-		// Required: true
-		Name string `json:"name"`
-	}
+	Body *models.Song
 }
 
 // Song is the route that receives a song name and returns song info.
-func Song(c echo.Context) error {
+func Song(c echo.Context, songService interfaces.SongService) error {
 	// swagger:route GET /song Song
 	//
 	// Returns information about a song.
@@ -52,6 +49,12 @@ func Song(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, resp.BuildResponse().Body) // #TODO Add this in docs
 	}
 	var resp songResponse
-	resp.Body.Name = name
+	var err error
+	resp.Body, err = songService.GetSongInfo(name, artist)
+	if err != nil {
+		var errorResp errorResponse
+		errorResp.Body.Message = internalServerError
+		return c.JSON(http.StatusInternalServerError, errorResp)
+	}
 	return c.JSON(http.StatusOK, resp.Body)
 }

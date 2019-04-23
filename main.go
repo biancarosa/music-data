@@ -22,6 +22,7 @@
 package main
 
 import (
+	"github.com/biancarosa/music-data/services"
 	"os"
 
 	"github.com/labstack/echo"
@@ -42,10 +43,13 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Routes
+	container := services.Register()
+
 	v1 := e.Group("/v1")
 	v1.GET("/healthcheck", routes.HealthCheck)
-	v1.GET("/song", routes.Song)
+	v1.GET("/song", func(c echo.Context) error {
+		return routes.Song(c, container.SongService)
+	})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
