@@ -1,3 +1,24 @@
+// Package main Music Data API.
+//
+// the purpose of this application is to provide information about music.
+//
+// Terms Of Service:
+//
+// there are no TOS at this moment, use at your own risk we take no responsibility
+//
+//     Schemes: http, https
+//     Host: localhost
+//     BasePath: /
+//     Version: 0.1.0
+//     License: MIT http://opensource.org/licenses/MIT
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+// swagger:meta
 package main
 
 import (
@@ -22,7 +43,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", routes.HealthCheck)
+	e.GET("/healthcheck", routes.HealthCheck)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

@@ -1,0 +1,82 @@
+basePath: /
+consumes:
+- application/json
+host: localhost
+info:
+  description: the purpose of this application is to provide information about music.
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+  termsOfService: there are no TOS at this moment, use at your own risk we take no
+    responsibility
+  title: Music Data API.
+  version: 0.1.0
+paths:
+  /healthcheck:
+    get:
+      description: We will check some info regarding the application health, including
+        memory stats.
+      operationId: HealthCheck
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/healthCheckResponse'
+      schemes:
+      - https
+      summary: Returns information about our application health.
+  /song:
+    get:
+      description: We will retrieve some info in other APIs and in our database.
+      operationId: Song
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/songResponse'
+      schemes:
+      - https
+      summary: Returns information about a song.
+produces:
+- application/json
+responses:
+  healthCheckResponse:
+    description: songResponse defines the response that you get of a valid healthcheck.
+    schema:
+      properties:
+        Application:
+          properties:
+            goroutines:
+              description: Número de go rotinas abertas
+              format: int64
+              type: integer
+              x-go-name: Goroutines
+            heapAlloc:
+              description: Quanto de memória está alocada para uso da aplicação
+              type: string
+              x-go-name: HeapAlloc
+          required:
+          - goroutines
+          - heapAlloc
+          type: object
+        applicationVersion:
+          description: Application version
+          type: string
+          x-go-name: ApplicationVersion
+      required:
+      - applicationVersion
+      type: object
+  songResponse:
+    description: songResponse defines the response that you get of a valid song.
+    schema:
+      properties:
+        Name:
+          description: Song name
+          type: string
+      required:
+      - Name
+      type: object
+schemes:
+- http
+- https
+swagger: "2.0"
