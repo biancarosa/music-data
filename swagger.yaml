@@ -1,0 +1,38 @@
+definitions:
+  applicationDetails:
+    properties:
+      goroutines:
+        description: Número de go rotinas abertas
+        format: int64
+        type: integer
+        x-go-name: Goroutines
+      heapAlloc:
+        description: Quanto de memória está alocada para uso da aplicação
+        type: string
+        x-go-name: HeapAlloc
+    required:
+    - goroutines
+    - heapAlloc
+    type: object
+    x-go-package: github.com/biancarosa/music-data/routes
+paths:
+  /healthcheck:
+    get:
+      description: Retorna informação da saúde da aplicação
+      operationId: HealthCheck
+      responses:
+        "200":
+          $ref: '#/responses/healthCheckResponse'
+responses:
+  healthCheckResponse:
+    headers:
+      application: {}
+      applicationVersion:
+        description: |-
+          Versão da aplicação
+
+          Required: true
+        type: string
+    schema:
+      $ref: '#/definitions/applicationDetails'
+swagger: "2.0"

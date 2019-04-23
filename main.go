@@ -22,7 +22,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", routes.HealthCheck)
+	e.GET("/healthcheck", routes.HealthCheck)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
