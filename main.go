@@ -46,5 +46,6 @@ func main() {
 	v1 := e.Group("/v1")
 	v1.GET("/healthcheck", routes.HealthCheck)
 	v1.GET("/song", routes.Song)
+
 	e.Logger.Fatal(e.Start(":1323"))
 }

@@ -38,11 +38,18 @@ func Song(c echo.Context) error {
 	//     200: songResponse
 	log.Debug("GetSong has been called")
 	name := c.QueryParam("name")
-	if name == "" {
+	artist := c.QueryParam("artist")
+	if name == "" || artist == "" {
 		resp := validationError{
-			queryParameters: []string{"name"},
-		}.BuildResponse()
-		return c.JSON(http.StatusBadRequest, resp.Body) // #TODO Add this in docs
+			queryParameters: []string{},
+		}
+		if name == "" {
+			resp.queryParameters = append(resp.queryParameters, "name")
+		}
+		if artist == "" {
+			resp.queryParameters = append(resp.queryParameters, "artist")
+		}
+		return c.JSON(http.StatusBadRequest, resp.BuildResponse().Body) // #TODO Add this in docs
 	}
 	var resp songResponse
 	resp.Body.Name = name
