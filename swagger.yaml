@@ -1,6 +1,23 @@
-basePath: /
+basePath: /v1
 consumes:
 - application/json
+definitions:
+  Song:
+    description: Song defines a song
+    properties:
+      artist:
+        description: Artist name
+        type: string
+        x-go-name: Artist
+      name:
+        description: Song name
+        type: string
+        x-go-name: Name
+    required:
+    - name
+    - artist
+    type: object
+    x-go-package: github.com/biancarosa/music-data/models
 host: localhost
 info:
   description: the purpose of this application is to provide information about music.
@@ -44,21 +61,22 @@ responses:
     description: songResponse defines the response that you get of a valid healthcheck.
     schema:
       properties:
-        Application:
+        application:
           properties:
             goroutines:
-              description: Número de go rotinas abertas
+              description: Number of open goroutines.
               format: int64
               type: integer
               x-go-name: Goroutines
             heapAlloc:
-              description: Quanto de memória está alocada para uso da aplicação
+              description: Allocated memory for the application.
               type: string
               x-go-name: HeapAlloc
           required:
           - goroutines
           - heapAlloc
           type: object
+          x-go-name: Application
         applicationVersion:
           description: Application version
           type: string
@@ -69,13 +87,7 @@ responses:
   songResponse:
     description: songResponse defines the response that you get of a valid song.
     schema:
-      properties:
-        Name:
-          description: Song name
-          type: string
-      required:
-      - Name
-      type: object
+      $ref: '#/definitions/Song'
 schemes:
 - http
 - https

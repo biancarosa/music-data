@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// songResponse defines the response that you get of a valid healthcheck.
+// healthCheckResponse defines the response that you get of a valid healthcheck.
 // swagger:response healthCheckResponse
 type healthCheckResponse struct {
 	// The response for a valid healthcheck request.
