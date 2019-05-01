@@ -6,11 +6,16 @@ import (
 )
 
 type songService struct {
-	lastFMService interfaces.LastFMService
+	lastFMService  interfaces.LastFMService
+	spotifyService interfaces.SpotifyService
 }
 
 func (s songService) GetSongInfo(name, artist string) (*models.Song, error) {
 	lastFMTrack, err := s.lastFMService.GetSongInfo(name, artist)
+	if err != nil {
+		return nil, err
+	}
+	_, err = s.spotifyService.GetSongInfo(name, artist)
 	if err != nil {
 		return nil, err
 	}
@@ -21,6 +26,6 @@ func (s songService) GetSongInfo(name, artist string) (*models.Song, error) {
 }
 
 //NewSongService returns a implementation of a SongService
-func NewSongService(lastFMService interfaces.LastFMService) interfaces.SongService {
-	return &songService{lastFMService: lastFMService}
+func NewSongService(lastFMService interfaces.LastFMService, spotifyService interfaces.SpotifyService) interfaces.SongService {
+	return &songService{lastFMService: lastFMService, spotifyService: spotifyService}
 }

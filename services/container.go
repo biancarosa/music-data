@@ -15,7 +15,8 @@ type Container struct {
 func Register() *Container {
 	log.Debug("Initializing containers")
 	lastFMService := NewLastFMService()
+	spotifyService := NewSpotifyService()
 	return &Container{
-		SongService: NewSongService(lastFMService),
+		SongService: NewSongService(lastFMService, spotifyService),
 	}
 }
