@@ -6,5 +6,5 @@ import (
 
 //LastFMService is the interface that defines a LastFMService provider
 type LastFMService interface {
-	GetSongInfo(name, artist string) (*models.Song, error)
+	GetSongInfo(name, artist string) (*models.LastFMTrack, error)
 }

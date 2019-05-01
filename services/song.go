@@ -10,7 +10,14 @@ type songService struct {
 }
 
 func (s songService) GetSongInfo(name, artist string) (*models.Song, error) {
-	return s.lastFMService.GetSongInfo(name, artist)
+	lastFMTrack, err := s.lastFMService.GetSongInfo(name, artist)
+	if err != nil {
+		return nil, err
+	}
+	return &models.Song{
+		Artist: lastFMTrack.Artist.Name,
+		Name:   lastFMTrack.Name,
+	}, nil
 }
 
 //NewSongService returns a implementation of a SongService
